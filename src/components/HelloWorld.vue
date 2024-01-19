@@ -33,7 +33,11 @@ const dome = reactive([
       type:"qldialog",
       data:false,
     }]
-  }
+  },
+  {
+    id:4,
+    type:"CustomComponent"
+  },
 ])
 
 </script>
@@ -49,7 +53,7 @@ const dome = reactive([
     </p>
   </div>
   <component v-focus="item" :item="item" v-for="item in dome" :is="item.type" :key="item.id"></component>
-
+  
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
 
