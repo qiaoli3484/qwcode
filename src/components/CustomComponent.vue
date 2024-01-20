@@ -6,7 +6,7 @@
 <script setup>
 //:item="item" @CustomEvent="onCustomEvent"
 import {ref, watch} from 'vue';
-import {loadModule} from 'vue3-sfc-loader/dist/vue3-sfc-loader.js';
+import {loadModule} from 'vue3-sfc-loader';
 const remote = ref(null);
 const sfcContent ="<template>Hello World !</template>"
 const loadComponent = async()=>{
