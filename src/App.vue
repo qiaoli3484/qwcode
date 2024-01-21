@@ -1,30 +1,29 @@
 <script setup>
 import HelloWorld from './components/designer/ql-view.vue'
+let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})
+    console.log(aa,"222")
+    const componentsContext=aa
+    let ComponentNames = []
+    const keys = Object.keys(componentsContext).map((path) => {
+        const name = path.split('/').pop().replace(/\.\w+$/, '');
+        const module = componentsContext[path];
+        //如果名称后面是 属性 或者是 Attr 就不要加入
+        if (!(name.endsWith("属性") || name.endsWith("Attr"))) {
+            ComponentNames.push(name)
+        }
+        console.log("注册组件", "uiName", name)
+        //app.component(uiName + name, module.default);
+        // app.component(name, module.default);
+        return name;
+    });
+    console.log(aa,"222",ComponentNames)
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
   <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>

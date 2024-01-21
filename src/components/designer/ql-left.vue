@@ -1,5 +1,5 @@
 <template>
-     <el-tabs class="tabs-left" v-model="tabsName" >
+     <el-tabs class="tabs-left" v-model="tabsName" type="border-card">
         <el-tab-pane label="组件设置" name="first">
             <el-collapse v-model="activeName">
                 <el-collapse-item :title="item.label" :name="item.label" v-for="item in data" :key="item.label">
@@ -68,7 +68,7 @@
                     </vuedraggable>
                 </el-collapse-item>
 
-                <el-collapse-item :title="item.name" :name="item.name" v-for="item in tables">
+                <el-collapse-item :title="item.name" :name="item.name" v-for="item in tables" :key="item.name">
                     <vuedraggable  v-model="item.list"  
                     @start="drag = true" 
                     @end="drag = false"
@@ -104,7 +104,7 @@
     import vuedraggable from 'vuedraggable'
     //import {cloneEl} from './components/common.js'
     import search from './components/defineSearch.vue'
-    import {ApiGetTemplets,ApiGetWidget,ApiGetWidgetMap} from '@/utils/api.js'
+    //import {ApiGetTemplets,ApiGetWidget,ApiGetWidgetMap} from '@/utils/api.js'
     const {proxy}=getCurrentInstance()
     const props= defineProps({
         detail:{type:Boolean,default:false},
@@ -146,21 +146,21 @@
     const childlist=ref([])
     const templets=ref([])
     const getForm=()=>{
-        ApiGetWidget(tid.value).then(res => {
+        /*ApiGetWidget(tid.value).then(res => {
             formlist.value=res.data.fields
             childlist.value=res.data.childs
         })
         ApiGetTemplets().then(res => {
             templets.value=res.data
-        })
+        })*/
     }
 
     const widgets=inject("widgets")
     //从这里获取组件信息
     const getwidgets=()=>{
-        ApiGetWidgetMap(tid.value).then(res => {
+        /*ApiGetWidgetMap(tid.value).then(res => {
             widgets.value=res.data
-        })
+        })*/
     }
 
 
@@ -170,7 +170,10 @@
     })
 </script>
 
-<style scoped>
+<style >
+    .tabs-left>.el-tabs__content{
+        padding: 0 5px 5px 5px!important;
+    }
   .aaa{
     display: inline-block;
     height: 28px;

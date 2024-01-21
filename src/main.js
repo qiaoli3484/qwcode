@@ -9,9 +9,19 @@ import qldialog from './components/qldialog.vue'
 import CustomComponent from './components/CustomComponent.vue'
 const app = createApp(App)
 
+registerBoxComponentNames(app,"","")
+
 app.component('qlInput', qlInput)
 app.component('qldialog', qldialog)
 app.component('CustomComponent', CustomComponent)
 
 app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.mount('#app')
+
+
+
+//注册组件
+function registerBoxComponentNames(app,uiName,meta){
+    let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})
+    console.log(aa,"222")
+}

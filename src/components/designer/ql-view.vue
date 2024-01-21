@@ -1,7 +1,9 @@
 <template>
     <el-container>
       <el-aside width="200px">
+        <el-scrollbar>
         <qlleft :detail="props.detail" />
+        </el-scrollbar>
       </el-aside>
 
       <el-container>
@@ -13,19 +15,19 @@
                 <el-radio-button label="Pad" />
                 <el-radio-button label="H5" />
             </el-radio-group>
-            当前版式:{{layout.name}}
+            当前版式:
         </el-header>
 
         <el-main>
             <el-scrollbar>
-                <qlmid v-model:layout="layout" :detail="props.detail"/>
+                <!-- <qlmid v-model:layout="layout" :detail="props.detail"/> -->
             </el-scrollbar>
         </el-main>
       </el-container>
       
-      <el-aside width="250px">
-        <qlright v-model:el="currentEl"  v-model:form="layout.form" ref="ref_right"/>
-      </el-aside>
+       <!-- <el-aside width="250px">
+       <qlright v-model:el="currentEl"  v-model:form="layout.form" ref="ref_right"/>
+      </el-aside> -->
     </el-container>
 </template>
 
@@ -33,8 +35,8 @@
 <script setup>
     import {ref,provide,defineProps,computed,defineEmits} from 'vue'
     import qlleft from './ql-left.vue'
-    import qlmid from './ql-middle.vue'
-    import qlright from './ql-right.vue'
+    /*import qlmid from './ql-middle.vue'
+    import qlright from './ql-right.vue'*/
 
     const props= defineProps({
         layout:Object,
