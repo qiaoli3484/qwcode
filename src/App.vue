@@ -1,4 +1,5 @@
 <script setup>
+import {ref} from 'vue'
 import HelloWorld from './components/designer/ql-view.vue'
 let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})
     console.log(aa,"222")
@@ -18,10 +19,11 @@ let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})
     });
     console.log(aa,"222",ComponentNames)
 
+const layout=ref([])
 </script>
 
 <template>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld msg="Vite + Vue" :layout="layout"/>
 </template>
 
 <style scoped>

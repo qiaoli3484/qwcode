@@ -20,7 +20,7 @@
 
         <el-main>
             <el-scrollbar>
-                <qlmid v-model:layout="layout" :detail="props.detail"/>
+                <qlmid v-model:layout="props.layout" :detail="props.detail"/>
             </el-scrollbar>
         </el-main>
       </el-container>
@@ -39,10 +39,10 @@
     /*import qlright from './ql-right.vue'*/
 
     const props= defineProps({
-        layout:Object,
+        layout:Array,
         detail:Boolean,
     })
-    const emit=defineEmits(['update:layout'])
+    /*const emit=defineEmits(['update:layout'])
     const layout=computed({
         get:()=>{
             return props.layout
@@ -50,7 +50,7 @@
         set:(val)=>{
             emit('update:layout',val)
         }
-    })
+    })*/
 
     const widgets=ref({})
     provide('widgets',widgets)

@@ -4,7 +4,7 @@
             
            
             style="overflow:auto;background: rgb(255, 255, 255);height:100%;" >
-            <vuedraggable  v-model="layout.content"  @start="drag = true" @end="drag = false" @change="dragchange" style="height:100%;margin:2px;" group="people" item-key="id" handle=".handle">
+            <vuedraggable  v-model="layout"  @start="drag = true" @end="drag = false" @change="dragchange" style="height:100%;margin:2px;" group="people" item-key="id" handle=".handle">
                 <template #item="{element,index}">
                     <!-- <component 
                         :label-position="layout.form.labelPosition" 
@@ -29,7 +29,7 @@
     //import {getFieldComponent} from './components/common.js'
 
     const props=defineProps({
-        layout:Object,
+        layout:Array,
         detail:Boolean
     })
     const emit= defineEmits(['update:layout'])
