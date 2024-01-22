@@ -6,14 +6,14 @@
             style="overflow:auto;background: rgb(255, 255, 255);height:100%;" :style="{width:layout.form.width}">
             <vuedraggable  v-model="layout.content"  @start="drag = true" @end="drag = false" @change="dragchange" style="height:100%;margin:2px;" group="people" item-key="id" handle=".handle">
                 <template #item="{element,index}">
-                    <component 
+                    <!-- <component 
                         :is="getFieldComponent(element,widgets,props.detail)"
                         v-model:el="layout.content[index]"
                         v-model:parent="layout.content"
                         :num="index"
                         v-model:data="data[element.alias]"
                         >
-                    </component> 
+                    </component> --> 
                 </template>
             </vuedraggable>
         </el-form>

@@ -1,5 +1,5 @@
 <script setup>
-import HelloWorld from './components/designer/ql-view.vue'
+//import HelloWorld from './components/designer/ql-view.vue'
 let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})
     console.log(aa,"222")
     const componentsContext=aa
@@ -21,6 +21,7 @@ let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})
 </script>
 
 <template>
+  <h2>222</h2>
   <HelloWorld msg="Vite + Vue" />
 </template>
 

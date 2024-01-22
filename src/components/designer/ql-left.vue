@@ -119,8 +119,8 @@
     const dragchange=()=>{
     }
 
-    const tid=inject("tid")
-    const rid=inject("rid")
+    //const tid=inject("tid")
+    //const rid=inject("rid")
   
     const tableVisible=ref(false)
     const tables=ref([])

@@ -35,8 +35,8 @@
 <script setup>
     import {ref,provide,defineProps,computed,defineEmits} from 'vue'
     import qlleft from './ql-left.vue'
-    /*import qlmid from './ql-middle.vue'
-    import qlright from './ql-right.vue'*/
+    import qlmid from './ql-middle.vue'
+    /*import qlright from './ql-right.vue'*/
 
     const props= defineProps({
         layout:Object,
