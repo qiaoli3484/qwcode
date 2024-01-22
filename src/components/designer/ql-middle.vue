@@ -1,12 +1,16 @@
 <template>
     <div style="background-color:#E6E8EB;height:calc(100vh - 80px);padding:5px;">
         <el-form ref="formRef" :model="data"
-            :label-position="layout.form.labelPosition" 
-            :size="layout.form.csize" 
-            style="overflow:auto;background: rgb(255, 255, 255);height:100%;" :style="{width:layout.form.width}">
+            
+           
+            style="overflow:auto;background: rgb(255, 255, 255);height:100%;" >
             <vuedraggable  v-model="layout.content"  @start="drag = true" @end="drag = false" @change="dragchange" style="height:100%;margin:2px;" group="people" item-key="id" handle=".handle">
                 <template #item="{element,index}">
                     <!-- <component 
+                        :label-position="layout.form.labelPosition" 
+                        :size="layout.form.csize" 
+                        :style="{width:layout.form.width}"
+
                         :is="getFieldComponent(element,widgets,props.detail)"
                         v-model:el="layout.content[index]"
                         v-model:parent="layout.content"

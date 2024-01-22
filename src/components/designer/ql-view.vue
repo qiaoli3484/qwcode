@@ -20,7 +20,7 @@
 
         <el-main>
             <el-scrollbar>
-                <!-- <qlmid v-model:layout="layout" :detail="props.detail"/> -->
+                <qlmid v-model:layout="layout" :detail="props.detail"/>
             </el-scrollbar>
         </el-main>
       </el-container>
