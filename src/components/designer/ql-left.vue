@@ -105,6 +105,7 @@
     //import {cloneEl} from './components/common.js'
     import search from './components/defineSearch.vue'
     //import {ApiGetTemplets,ApiGetWidget,ApiGetWidgetMap} from '@/utils/api.js'
+    import { useAppStore } from '@/stores/appStores'
     const {proxy}=getCurrentInstance()
     const props= defineProps({
         detail:{type:Boolean,default:false},
@@ -163,6 +164,13 @@
         })*/
     }
 
+
+    const BoxComponentNames=inject("BoxComponentNames")
+
+    const AppStore=useAppStore()
+    const cloneEl=(val,detail)=>{
+         console.log(val,detail,AppStore.当前拖拽组件数据)
+    }
 
     onMounted(()=>{
         getForm()
