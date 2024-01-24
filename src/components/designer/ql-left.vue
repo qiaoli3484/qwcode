@@ -166,10 +166,12 @@
 
 
     const BoxComponentNames=inject("BoxComponentNames")
+    const BoxComponentDefaultValue=inject("BoxComponentDefaultValue")
 
     const AppStore=useAppStore()
     const cloneEl=(val,detail)=>{
-         console.log(val,detail,AppStore.当前拖拽组件数据)
+         console.log(val,detail,AppStore.当前拖拽组件数据,BoxComponentDefaultValue)
+         
     }
 
     onMounted(()=>{

@@ -1,8 +1,8 @@
 <script setup>
 import {ref} from 'vue'
-import HelloWorld from './components/designer/ql-view.vue'
+//import HelloWorld from './components/designer/ql-view.vue'
 
-
+import HelloWorld from './components/customBox/index.vue'
 
 
 
