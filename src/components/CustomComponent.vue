@@ -38,9 +38,10 @@ const loadComponent = async()=>{
        
       }
     }
+    const timestamp = Date.now(); // 获取当前时间的时间戳
 
    remote.value=Vue.defineAsyncComponent(() =>loadModule("/haha.vue",options))
-   console.log(JSON.stringify(loadModule("/haha.vue",options)))
+   console.log(timestamp+"/haha.vue")
 }
 
 loadComponent()
