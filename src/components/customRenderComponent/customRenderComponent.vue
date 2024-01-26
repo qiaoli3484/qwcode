@@ -1,5 +1,5 @@
 <template>
-    <el-button @click="loadComponent()">更新</el-button>
+    <el-button @click="load()" v-if="!props.auto">更新</el-button>
     <component :is="remote" />
 </template>
 
@@ -9,10 +9,15 @@ import * as Vue from "vue";
 import {loadModule} from 'vue3-sfc-loader';
 
 const props=defineProps({
-    content:String
+    content:String,
+    auto:{type:Boolean,default:false}
 })
 
 const remote = shallowRef();
+
+const load=()=>{
+  loadComponent()
+}
 
 const loadComponent =()=>{
     console.log(props.content)
@@ -48,14 +53,16 @@ const loadComponent =()=>{
 }
 
 
+if (props.auto){
+  loadComponent()
+}
 
-loadComponent()
 
 //创建监听 item.HTML 重新渲染
-watch(() => props.content, () => {
+/*watch(() => props.content, () => {
   console.log("重新渲染")
   loadComponent();
-})
+})*/
 </script>
 /*
 compiledCache: {

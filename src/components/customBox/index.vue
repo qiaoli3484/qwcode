@@ -2,9 +2,7 @@
 
 <qlcode language="html" ref="ref_code" v-model:code="content" />
 <el-button @click="reload">重载</el-button>
-<el-button @click="reloading=false">关闭</el-button>
-<el-button @click="reloading=true">打开</el-button>
-<qlcustom :content="content" v-if="reloading"/>
+<qlcustom :content="content" v-if="reloading"  :auto="false"  />
 
 </template>
 <script setup>
@@ -17,15 +15,20 @@ const ref_code=ref(null)
 const reloading=ref(true)
 
 const reload=()=>{
+    try {
     reloading.value=false
     console.log(111)
-    nextTick(()=>{
+    /*nextTick(()=>{*/
+        console.log(222)
         setTimeout(()=>{
             reloading.value=true
-            console.log(222)
+            console.log(333)
        },2000)
-    })
+    /*})*/
     /**/
+    }catch(err){
+        console.error(err);
+    }
 }
 
 nextTick(()=>{
