@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var dbg *gorm.DB
+var DB *gorm.DB
 
 func InitMysql() {
 	dsn := "root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&loc=Local&parseTime=True" //&parseTime=True
@@ -16,7 +16,7 @@ func InitMysql() {
 	if err != nil {
 		panic(err)
 	}
-	dbg = d
+	DB = d
 	sqlDB, err := d.DB()
 	if err != nil {
 		panic(err)
@@ -26,5 +26,5 @@ func InitMysql() {
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
 	// 迁移 schema
-	d.AutoMigrate(&models.Product{})
+	d.AutoMigrate(&models.WebComponents{})
 }
