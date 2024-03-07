@@ -20,4 +20,14 @@ export default defineConfig({
           '@':resolve(__dirname,'src')
       }
   },
+  server: {
+    // http://localhost:5173/api/login -> http://localhost:3001/login
+    proxy: {
+      '/api': {
+        target: 'http://localhost:18967',
+        changeOrigin: true,
+        rewrite: path => path.replace(RegExp(`^/api`), '')
+      },
+    }
+  },
 })

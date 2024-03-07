@@ -30,15 +30,15 @@ const loadComponent =()=>{
             vue: Vue
           },
           async getFile(url) {
-            const data= await proxy.$get(url)
-            console.log(url,data)
+            const data= await proxy.$get("/api/"+url)
+            console.log(url,data,222)
             /*const res = await fetch(url);
             if ( !res.ok )
               throw Object.assign(new Error(res.statusText + ' ' + url), { res });
             return {
               getContentData: asBinary => asBinary ? res.arrayBuffer() : res.text(),
             }*/
-            return props.content
+            return data.data
           }, 
           addStyle(textContent) {
             const style = Object.assign(document.createElement("style"), {
