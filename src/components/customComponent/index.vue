@@ -1,18 +1,14 @@
 <template>
-    <el-button @click="load()" v-if="!props.auto">更新</el-button>
     <component :is="remote" />
 </template>
 
 <script setup>
-import {ref, watch,shallowRef,getCurrentInstance,defineProps,defineAsyncComponent} from 'vue';
+import {ref, watch,shallowRef, defineProps,defineAsyncComponent} from 'vue';
 import * as Vue from "vue";
 import {loadModule} from 'vue3-sfc-loader';
 
-const {proxy} =getCurrentInstance();
-
 const props=defineProps({
     content:String,
-    url:String,
     auto:{type:Boolean,default:false}
 })
 
@@ -30,8 +26,7 @@ const loadComponent =()=>{
             vue: Vue
           },
           async getFile(url) {
-            const data= await proxy.$get(url)
-            console.log(url,data)
+            console.log(url,"1111")
             /*const res = await fetch(url);
             if ( !res.ok )
               throw Object.assign(new Error(res.statusText + ' ' + url), { res });

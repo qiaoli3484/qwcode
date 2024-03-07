@@ -8,7 +8,7 @@
 <script setup>
 import {ref,nextTick} from 'vue'
 import qlcode from '@/components/qlcode/qlcode.vue'
-import qlcustom from '@/components/customRenderComponent/customRenderComponent.vue'
+//import qlcustom from '@/components/customRenderComponent/customRenderComponent.vue'
 
 const content=ref("<template><h2>aaa</h2></template>")
 const ref_code=ref(null)

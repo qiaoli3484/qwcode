@@ -23,7 +23,7 @@ func Get(query interface{}, args ...interface{}) (*models.WebComponents, error) 
 }
 
 func Gets(query interface{}, args ...interface{}) ([]*models.WebComponents, error) {
-	rows, err := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Rows()
+	rows, err := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Limit(10).Offset(0).Order("id desc").Rows()
 	if err != nil {
 		return nil, err
 	}

@@ -7,13 +7,21 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import {createPinia} from 'pinia'
 
 import Helper from './Helper.js'
-
+import { post, get, del, put } from '@/util/http.js'
 
 //import qlInput from './components/qlInput.vue'
 //import qldialog from './components/qldialog.vue'
 //import CustomComponent from './components/CustomComponent.vue'
 const app = createApp(App)
 
+import qlcustom from '@/components/customRenderComponent/customRenderComponent.vue'
+app.component("qlcustom", qlcustom);
+
+
+app.config.globalProperties.$get=get;
+app.config.globalProperties.$del=del;
+app.config.globalProperties.$put=put;
+app.config.globalProperties.$post=post;
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
