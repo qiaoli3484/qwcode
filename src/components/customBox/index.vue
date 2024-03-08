@@ -10,7 +10,7 @@ import {ref,nextTick} from 'vue'
 import qlcode from '@/components/qlcode/qlcode.vue'
 //import qlcustom from '@/components/customRenderComponent/customRenderComponent.vue'
 
-const content=ref("<template><h2>aaa</h2></template>")
+const content=ref("myComponent.vue")
 const ref_code=ref(null)
 const reloading=ref(true)
 

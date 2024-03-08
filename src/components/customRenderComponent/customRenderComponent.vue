@@ -30,7 +30,7 @@ const loadComponent =()=>{
             vue: Vue
           },
           async getFile(url) {
-            const data= await proxy.$get("/api/"+url)
+            const data= await proxy.$get("/api/component/"+url)
             console.log(url,data,222)
             /*const res = await fetch(url);
             if ( !res.ok )
@@ -48,7 +48,7 @@ const loadComponent =()=>{
             document.head.insertBefore(style, ref);
           }
         }
-      const comp =defineAsyncComponent(() =>loadModule("myComponent.vue",options))
+      const comp =defineAsyncComponent(() =>loadModule(props.content,options))
 
       remote.value=comp
   } catch (err) {
