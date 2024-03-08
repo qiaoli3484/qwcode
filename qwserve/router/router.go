@@ -27,12 +27,16 @@ func InitRouter() *gin.Engine {
 		} else if name == "content.vue" {
 			s1 = `
 			<template>
-			   <h2>{{a}}</h2>
-			   <el-button>啊啊啊</el-button>
+			   <el-button @click="aaaa">啊啊啊</el-button>
 			</template>
 			<script setup>
-			import {ref, watch,shallowRef, defineProps,defineAsyncComponent} from 'vue';
+			import {ref, watch,shallowRef, defineProps,getCurrentInstance} from 'vue';
+			const {proxy} =getCurrentInstance();
+
 			const a=ref("测试22")
+			const aaaa=()=>{
+				proxy.$get("aaa/bbb")
+			}
 			</script>
 			`
 		}
@@ -48,7 +52,9 @@ func InitRouter() *gin.Engine {
 //字段->转换成元素
 
 type 元素 struct {
+	name      string
 	component string //组件名称 版本?
 	data      string
 	childrens []*元素
+	attr      map[string]interface{} //包含tid id
 }
