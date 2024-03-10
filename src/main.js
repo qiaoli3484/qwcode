@@ -4,6 +4,10 @@ import 'element-plus/dist/index.css'
 import './style.css'
 import App from './App.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
+
 import {createPinia} from 'pinia'
 
 import Helper from './Helper.js'
@@ -27,19 +31,19 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 //注册饿了么组件
-const BoxComponentNames_el = Helper.registerBoxComponentNames(app,"el",import.meta.glob('./components/boxs/base/**/*.vue', {eager: true}))
-console.log("饿了么组件", BoxComponentNames_el)
+//const BoxComponentNames_el = Helper.registerBoxComponentNames(app,"el",import.meta.glob('./components/boxs/base/**/*.vue', {eager: true}))
+//console.log("饿了么组件", BoxComponentNames_el)
 
 
-app.provide('BoxComponentNames', BoxComponentNames_el)
+//app.provide('BoxComponentNames', BoxComponentNames_el)
 
 
 //注册组件默认属性
-const BoxComponentDefaultValue = {
-    'el': Helper.registerBoxComponentDefaultValue(app, 'el', import.meta.glob('./components/boxs/base/**/*.js', {eager: true})),
+//const BoxComponentDefaultValue = {
+    //'el': Helper.registerBoxComponentDefaultValue(app, 'el', import.meta.glob('./components/boxs/base/**/*.js', {eager: true})),
     //'td': Helper.registerBoxComponentDefaultValue(app, 'td', import.meta.glob('./components/boxs/td/**/*.js', {eager: true}))
-}
-app.provide('BoxComponentDefaultValue', BoxComponentDefaultValue)
+//}
+//app.provide('BoxComponentDefaultValue', BoxComponentDefaultValue)
 
 
 //app.component('qlInput', qlInput)
@@ -47,6 +51,8 @@ app.provide('BoxComponentDefaultValue', BoxComponentDefaultValue)
 //app.component('CustomComponent', CustomComponent)
 
 app.use(ElementPlus, { size: 'small', zIndex: 3000 })
+app.use(VXETable)
+
 app.use(createPinia())
 app.mount('#app')
 

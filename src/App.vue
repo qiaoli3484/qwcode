@@ -3,7 +3,7 @@ import {ref} from 'vue'
 //import HelloWorld from './components/designer/ql-view.vue'
 
 import HelloWorld from './components/customBox/index.vue'
-
+import comps from './app/comps.vue'
 
 
 // let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})
@@ -29,6 +29,7 @@ const layout=ref([])
 
 <template>
   <HelloWorld msg="Vite + Vue" :layout="layout"/>
+  <comps></comps>
 </template>
 
 <style scoped>

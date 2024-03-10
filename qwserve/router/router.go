@@ -28,17 +28,21 @@ func InitRouter() *gin.Engine {
 			s1 = `
 			<template>
 			   <el-button @click="aaaa">啊啊啊</el-button>
+			   <el-input v-model="aa">啊啊啊</el-input>
 			</template>
 			<script setup>
 			import {ref, watch,shallowRef, defineProps,getCurrentInstance} from 'vue';
 			const {proxy} =getCurrentInstance();
 
 			const a=ref("测试22")
+			const aa=ref("测试22")
+
 			const aaaa=()=>{
 				proxy.$get("aaa/bbb")
 			}
 			</script>
 			`
+			//s1 = input.Inputjs
 		}
 
 		res.Response(200, "哈哈", s1)
