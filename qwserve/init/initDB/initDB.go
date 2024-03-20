@@ -11,7 +11,7 @@ import (
 var DB *gorm.DB
 
 func InitMysql() {
-	dsn := "root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&loc=Local&parseTime=True" //&parseTime=True
+	dsn := "root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&loc=Local&parseTime=True" //&parseTime=True
 	d, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)

@@ -100,7 +100,7 @@ const form = reactive({
   id:0,
   name: '',
   type:'',
-  state: 0,
+  state:0,
   param:'',
   code:'',
   comment:''
@@ -112,7 +112,7 @@ const newData=()=>{
 const saveing=ref(false)
 const saveData=async ()=>{
     saveing.value=true
-    proxy.$post("",JSON.stringify(form)).then(res=>{
+    proxy.$post("api/components/add",JSON.stringify(form)).then(res=>{
         form.id=res.data
         saveing.value=false
     }).catch(()=>{

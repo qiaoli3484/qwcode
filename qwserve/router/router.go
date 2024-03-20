@@ -1,13 +1,16 @@
 package router
 
 import (
+	"qwserve/models"
 	"qwserve/pkg/app"
+	webcomponents "qwserve/service/webComponents"
 
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter() *gin.Engine {
 	r := gin.Default()
+	RouterComponent(r)
 	r.GET("/component/:name", func(c *gin.Context) {
 		res := app.Gin{c}
 		name := c.Param("name")
@@ -51,6 +54,25 @@ func InitRouter() *gin.Engine {
 
 	//<template><h2>aaa</h2></template>
 	return r
+}
+
+func RouterComponent(r *gin.Engine) {
+	r.POST("components/add", func(c *gin.Context) {
+		res := app.Gin{c}
+		data := &models.WebComponents{}
+		err := c.ShouldBind(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		id, err := webcomponents.Add(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		res.Response(200, "成功", id)
+	})
+
 }
 
 //字段->转换成元素
