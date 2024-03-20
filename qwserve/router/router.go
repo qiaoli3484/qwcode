@@ -72,7 +72,21 @@ func RouterComponent(r *gin.Engine) {
 		}
 		res.Response(200, "成功", id)
 	})
-
+	r.POST("components/update", func(c *gin.Context) {
+		res := app.Gin{c}
+		data := &models.WebComponents{}
+		err := c.ShouldBind(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		err = webcomponents.Updates(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		res.Response(200, "更新成功", nil)
+	})
 }
 
 //字段->转换成元素

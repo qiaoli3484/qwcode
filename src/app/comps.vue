@@ -112,12 +112,21 @@ const newData=()=>{
 const saveing=ref(false)
 const saveData=async ()=>{
     saveing.value=true
-    proxy.$post("api/components/add",JSON.stringify(form)).then(res=>{
-        form.id=res.data
-        saveing.value=false
-    }).catch(()=>{
-        saveing.value=false
-    })
+    if (form.id==0){
+        proxy.$post("api/components/add",JSON.stringify(form)).then(res=>{
+            form.id=res.data
+            saveing.value=false
+        }).catch(()=>{
+            saveing.value=false
+        })
+    }else{
+        proxy.$post("api/components/update",JSON.stringify(form)).then(res=>{
+            saveing.value=false
+        }).catch(()=>{
+            saveing.value=false
+        }) 
+    }
+   
 }
 
 const relaodData=()=>{

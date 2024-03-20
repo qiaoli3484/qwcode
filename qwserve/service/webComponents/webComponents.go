@@ -22,6 +22,15 @@ func Get(query interface{}, args ...interface{}) (*models.WebComponents, error) 
 	return obj, nil
 }
 
+func Updates(val *models.WebComponents) error {
+	result := initDB.DB.Save(val)
+	//result := initDB.DB.Model(&models.WebComponents{}).Updates(val)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
 func Gets(query interface{}, args ...interface{}) ([]*models.WebComponents, error) {
 	rows, err := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Limit(10).Offset(0).Order("id desc").Rows()
 	if err != nil {
@@ -44,7 +53,6 @@ func Gets(query interface{}, args ...interface{}) ([]*models.WebComponents, erro
 }
 
 func Set(query interface{}, args ...interface{}) error {
-
 	result := initDB.DB.Model(&models.WebComponents{}).Where(query, args).Update("name", "hello")
 	if result.Error != nil {
 		return result.Error
