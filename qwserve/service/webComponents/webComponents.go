@@ -23,8 +23,8 @@ func Get(query interface{}, args ...interface{}) (*models.WebComponents, error) 
 }
 
 func Updates(val *models.WebComponents) error {
-	result := initDB.DB.Save(val)
-	//result := initDB.DB.Model(&models.WebComponents{}).Updates(val)
+	//result := initDB.DB.Save(val)
+	result := initDB.DB.Model(&models.WebComponents{}).Where("ID = ?", val.ID).Updates(val)
 	if result.Error != nil {
 		return result.Error
 	}
