@@ -15,7 +15,7 @@ func Add(val *models.WebComponents) (uint, error) {
 
 func Get(query interface{}, args ...interface{}) (*models.WebComponents, error) {
 	obj := &models.WebComponents{}
-	result := initDB.DB.Where("", args...).First(obj)
+	result := initDB.DB.Where(query, args...).First(obj)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -31,8 +31,8 @@ func Updates(val *models.WebComponents) error {
 	return nil
 }
 
-func Gets(query interface{}, args ...interface{}) ([]*models.WebComponents, error) {
-	rows, err := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Limit(10).Offset(0).Order("id desc").Rows()
+func Gets(limit, offset int, query interface{}, args ...interface{}) ([]*models.WebComponents, error) {
+	rows, err := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Limit(limit).Offset(offset).Order("id desc").Rows()
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func Gets(query interface{}, args ...interface{}) ([]*models.WebComponents, erro
 	for rows.Next() {
 		var user *models.WebComponents
 		// ScanRows 扫描每一行进结构体
-		initDB.DB.ScanRows(rows, user)
+		initDB.DB.ScanRows(rows, &user)
 
 		// 对每一个 User 进行操作
 		lists = append(lists, user)

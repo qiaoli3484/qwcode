@@ -2,7 +2,7 @@
     <div>
         <el-button type="primary" @click="newData">新建</el-button>
     </div>
-    <el-input style="width:300px;margin-left:300px" clearable placeholder="输入关键字搜索">
+    <el-input style="width:300px;margin-left:300px" clearable v-model.trim="searchVal" placeholder="输入关键字搜索">
         <template #suffix>
             <el-button type="text" icon="Search" @click="update(0)" />
         </template>
@@ -15,8 +15,8 @@
       <vxe-column type="seq" width="60" align="center"></vxe-column>
       <vxe-column width="120" title="操作" align="center">
         <template #default="{ row }">
-          <el-button type="text" @click="openDetail(row)">编辑</el-button><b />
-          <el-button type="text" @click="openDetail(row)">删除</el-button>
+          <el-button type="text" @click="openDetail(row.id)">编辑</el-button><b />
+          <el-button type="text" @click="delData(row.id)">删除</el-button>
         </template>
       </vxe-column>
       
@@ -40,7 +40,7 @@
         <el-button-group>
             <el-button type="primary" @click="newData">新建</el-button>
             <el-button type="primary" @click="saveData">保存</el-button>
-            <el-button type="danger" @click="newData">删除</el-button>
+            <el-button type="danger" @click="delData(form.id)">删除</el-button>
         </el-button-group>
         <el-tabs v-model="activeName" class="demo-tabs">
             <el-tab-pane label="基础" name="first">
@@ -92,11 +92,12 @@ const tableData = ref([
 ])
 
 const drawer = ref(false)
-const openDetail=()=>{
+const openDetail=(id)=>{
+    getdata(id)
     drawer.value=true
 }
 
-const form = reactive({
+const form = ref({
   id:0,
   name: '',
   type:'',
@@ -112,15 +113,15 @@ const newData=()=>{
 const saveing=ref(false)
 const saveData=async ()=>{
     saveing.value=true
-    if (form.id==0){
-        proxy.$post("api/components/add",JSON.stringify(form)).then(res=>{
-            form.id=res.data
+    if (form.value.id==0){
+        proxy.$post("api/components/add",JSON.stringify(form.value)).then(res=>{
+            form.value.id=res.data
             saveing.value=false
         }).catch(()=>{
             saveing.value=false
         })
     }else{
-        proxy.$post("api/components/update",JSON.stringify(form)).then(res=>{
+        proxy.$post("api/components/update",JSON.stringify(form.value)).then(res=>{
             saveing.value=false
         }).catch(()=>{
             saveing.value=false
@@ -130,12 +131,12 @@ const saveData=async ()=>{
 }
 
 const relaodData=()=>{
-    form.id=0
-    form.name=''
-    form.type=''
-    form.state=0
-    form.param=''
-    form.code=
+    form.value.id=0
+    form.value.name=''
+    form.value.type=''
+    form.value.state=0
+    form.value.param=''
+    form.value.code=
     `     <template>
         输入代码
      </template>
@@ -151,7 +152,7 @@ const relaodData=()=>{
     <//script>
     `
    
-    form.comment=''
+    form.value.comment=''
 }
 
 const page=reactive({current: 0,pagesize: 100,total: 0})
@@ -164,13 +165,22 @@ const handleCurrentChange= (val)=> {
       update(0)
     }
 
+   const searchVal=ref("")
+
 const update=(n) =>{
       if (n == 1) {
         page.current = 1
       }
-      proxy.$post(`/script/query?current=${page.current}&pagesize=${page.pagesize}`,JSON.stringify(list)).then((res) => {
+      proxy.$post(`api/components/gets?current=${page.current}&pagesize=${page.pagesize}`,JSON.stringify(searchVal.value)).then((res) => {
         tableData.value = res.data
         page.total = res.total
+      })
+}
+
+const getdata=(id) =>{
+      proxy.$get(`api/components/get?id=${id}`).then((res) => {
+        form.value = res.data
+        console.log(form)
       })
 }
 
@@ -180,4 +190,11 @@ const tableH=computed(()=>{
 
 const activeName = ref('first')
 
+
+const delData=(id) =>{
+      proxy.$del(`api/components/del?id=${id}`).then((res) => {
+        update(0)
+        relaodData()
+      })
+}
 </script>

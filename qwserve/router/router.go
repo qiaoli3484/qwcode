@@ -4,6 +4,7 @@ import (
 	"qwserve/models"
 	"qwserve/pkg/app"
 	webcomponents "qwserve/service/webComponents"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -57,6 +58,43 @@ func InitRouter() *gin.Engine {
 }
 
 func RouterComponent(r *gin.Engine) {
+	r.POST("components/gets", func(c *gin.Context) {
+		res := app.Gin{c}
+		offset, _ := strconv.Atoi(c.Query("current"))
+		limit, _ := strconv.Atoi(c.Query("pagesize"))
+
+		/*data := &models.WebComponents{}
+		err := c.ShouldBind(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}*/
+		id, err := webcomponents.Gets(limit, (offset-1)*limit, "1=1")
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		res.Response(200, "成功", id)
+	})
+
+	r.GET("components/get", func(c *gin.Context) {
+		res := app.Gin{c}
+		id, _ := strconv.Atoi(c.Query("id"))
+
+		/*data := &models.WebComponents{}
+		err := c.ShouldBind(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}*/
+		data, err := webcomponents.Get("id = ?", id)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		res.Response(200, "成功", data)
+	})
+
 	r.POST("components/add", func(c *gin.Context) {
 		res := app.Gin{c}
 		data := &models.WebComponents{}
@@ -86,6 +124,24 @@ func RouterComponent(r *gin.Engine) {
 			return
 		}
 		res.Response(200, "更新成功", nil)
+	})
+
+	r.DELETE("components/del", func(c *gin.Context) {
+		res := app.Gin{c}
+		id, _ := strconv.Atoi(c.Query("id"))
+
+		/*data := &models.WebComponents{}
+		err := c.ShouldBind(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}*/
+		err := webcomponents.Del("id = ?", id)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		res.Response(200, "成功", nil)
 	})
 }
 
