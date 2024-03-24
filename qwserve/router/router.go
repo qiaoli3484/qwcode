@@ -69,18 +69,17 @@ func RouterComponent(r *gin.Engine) {
 			res.Response(1001, err.Error(), "")
 			return
 		}*/
-		id, err := webcomponents.Gets(limit, (offset-1)*limit, "1=1")
+		id, total, err := webcomponents.Gets(limit, (offset-1)*limit, "1=1")
 		if err != nil {
 			res.Response(1001, err.Error(), "")
 			return
 		}
-		res.Response(200, "成功", id)
+		res.ResponseTotal(200, "成功", id, total)
 	})
 
 	r.GET("components/get", func(c *gin.Context) {
 		res := app.Gin{c}
 		id, _ := strconv.Atoi(c.Query("id"))
-
 		/*data := &models.WebComponents{}
 		err := c.ShouldBind(data)
 		if err != nil {
@@ -93,6 +92,22 @@ func RouterComponent(r *gin.Engine) {
 			return
 		}
 		res.Response(200, "成功", data)
+	})
+	r.GET("components/getcode/:name", func(c *gin.Context) {
+		res := app.Gin{c}
+		name := c.Param("name")
+		/*data := &models.WebComponents{}
+		err := c.ShouldBind(data)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}*/
+		data, err := webcomponents.Get("name = ?", name)
+		if err != nil {
+			res.Response(1001, err.Error(), "")
+			return
+		}
+		res.Response(200, "成功", data.Code)
 	})
 
 	r.POST("components/add", func(c *gin.Context) {

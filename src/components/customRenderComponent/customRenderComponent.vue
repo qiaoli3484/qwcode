@@ -30,7 +30,7 @@ const loadComponent =()=>{
             vue: Vue
           },
           async getFile(url) {
-            const data= await proxy.$get("/api/component/"+url)
+            const {data} = await proxy.$get("/api/components/getcode/"+url)
             console.log(url,data,222)
             /*const res = await fetch(url);
             if ( !res.ok )

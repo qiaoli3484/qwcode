@@ -31,10 +31,10 @@ func Updates(val *models.WebComponents) error {
 	return nil
 }
 
-func Gets(limit, offset int, query interface{}, args ...interface{}) ([]*models.WebComponents, error) {
+func Gets(limit, offset int, query interface{}, args ...interface{}) ([]*models.WebComponents, int64, error) {
 	rows, err := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Limit(limit).Offset(offset).Order("id desc").Rows()
 	if err != nil {
-		return nil, err
+		return nil, 0, err
 	}
 
 	defer rows.Close()
@@ -48,8 +48,13 @@ func Gets(limit, offset int, query interface{}, args ...interface{}) ([]*models.
 		// 对每一个 User 进行操作
 		lists = append(lists, user)
 	}
+	var count int64
+	result := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Count(&count)
+	if result.Error != nil {
+		return nil, count, nil
+	}
 
-	return lists, nil
+	return lists, count, nil
 }
 
 func Set(query interface{}, args ...interface{}) error {
