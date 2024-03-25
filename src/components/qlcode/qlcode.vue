@@ -2,7 +2,7 @@
     <div ref="editor"></div>
 </template>
 <script setup>
-import { ref,onMounted,defineProps,defineExpose,defineEmits} from 'vue'
+import { ref,onMounted,defineProps,defineExpose,defineEmits,computed,watch} from 'vue'
 import { EditorState,Compartment } from "@codemirror/state";
 import { basicSetup } from "codemirror";
 import { EditorView,keymap } from "@codemirror/view";
@@ -33,11 +33,12 @@ import { indentWithTab } from "@codemirror/commands";//字符缩进
         languageConf.of(languageMap[props.language]),
         keymap.of([indentWithTab]),
         EditorView.updateListener.of((v) => {
+            //code.value=v.state.doc.toString()
             emit('update:code',v.state.doc.toString())
         }) //监测得到的最新代码
         ],
         // 编辑器中的内容
-        doc: props.code,
+        doc: "",//props.code
     });
     const view=ref(null)
     
@@ -52,6 +53,7 @@ import { indentWithTab } from "@codemirror/commands";//字符缩进
         })*/
     }
     const setcode=(val)=>{
+        console.log("setcode",val)
         view.value.dispatch({
           changes: { from: 0,to:view.value.state.doc.length, insert:val },
         });
@@ -60,6 +62,24 @@ import { indentWithTab } from "@codemirror/commands";//字符缩进
     const getcode=()=>{
         return view.value.state.doc.toString();
     }
+
+
+    /*const code=computed({
+        get(){
+            console.log(props.code,'get')
+            setcode(props.code)
+            return props.code
+        },
+        set(val){
+            console.log(props.code,'set')
+            emit('update:code',val)
+        }
+    })*/
+
+    /*watch(code,()=>{
+        console.log(code,'watch')
+        setcode(code.value)
+    })*/
 
     defineExpose({
         setcode,

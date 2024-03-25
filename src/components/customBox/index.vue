@@ -10,7 +10,7 @@ import {ref,nextTick} from 'vue'
 import qlcode from '@/components/qlcode/qlcode.vue'
 //import qlcustom from '@/components/customRenderComponent/customRenderComponent.vue'
 
-const content=ref("myComponent.vue")
+const content=ref("qlrender.vue")
 const ref_code=ref(null)
 const reloading=ref(true)
 
@@ -32,6 +32,7 @@ const reload=()=>{
 }
 
 nextTick(()=>{
+    if (ref_code.value==null){return}
     ref_code.value.setcode(content.value)
 })
 

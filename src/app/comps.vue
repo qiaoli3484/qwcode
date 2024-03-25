@@ -22,7 +22,7 @@
       
       <vxe-column field="name" title="名称" sortable align="center"></vxe-column>
       <vxe-column field="sex" title="类型" sortable align="center"></vxe-column>
-      <vxe-column field="age" title="备注" sortable align="center"></vxe-column>
+      <vxe-column field="comment" title="备注" sortable align="center"></vxe-column>
     </vxe-table>
 
     <el-pagination
@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref,reactive,computed,getCurrentInstance} from 'vue'
+import { ref,reactive,computed,getCurrentInstance,nextTick} from 'vue'
 import qlcode from '@/components/qlcode/qlcode.vue'
 
 const {proxy} =getCurrentInstance();
@@ -92,9 +92,13 @@ const tableData = ref([
 ])
 
 const drawer = ref(false)
-const openDetail=(id)=>{
-    getdata(id)
+const ref_code= ref(null)
+const openDetail= async (id)=>{
+    await getdata(id)
     drawer.value=true
+    nextTick(()=>{
+        ref_code.value.setcode(form.value.code)
+    })
 }
 
 const form = ref({
@@ -153,6 +157,9 @@ const relaodData=()=>{
     `
    
     form.value.comment=''
+    if (ref_code.value!=null){
+        ref_code.value.setcode(form.value.code)
+    }
 }
 
 const page=reactive({current: 0,pagesize: 100,total: 0})
@@ -177,11 +184,10 @@ const update=(n) =>{
       })
 }
 
-const getdata=(id) =>{
-      proxy.$get(`api/components/get?id=${id}`).then((res) => {
-        form.value = res.data
+const getdata= async (id) =>{
+     const {data} =await proxy.$get(`api/components/get?id=${id}`)
+        form.value = data
         console.log(form)
-      })
 }
 
 const tableH=computed(()=>{

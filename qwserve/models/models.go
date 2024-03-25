@@ -12,6 +12,7 @@ type WebComponents struct {
 	Name      string `json:"name" gorm:"type:varchar(65);default:'';comment:名称;"`
 	Code      string `json:"code" gorm:"type:TEXT;comment:代码;"`
 	State     uint8  `json:"state" gorm:"type:tinyint;default:0;comment:状态;"`
+	Comment   string `json:"comment" gorm:"type:varchar(255);comment:代码;"`
 	Price     uint
 	CreatedAt time.Time
 	UpdatedAt time.Time

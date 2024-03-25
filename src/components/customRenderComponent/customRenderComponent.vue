@@ -1,6 +1,7 @@
 <template>
     <el-button @click="load()" v-if="!props.auto">更新</el-button>
-    <component :is="remote" />
+    <component :is="remote" :layer="props.layer"   />
+    {{props.vdata}}{{layer}}
 </template>
 
 <script setup>
@@ -9,12 +10,16 @@ import * as Vue from "vue";
 import {loadModule} from 'vue3-sfc-loader';
 
 const {proxy} =getCurrentInstance();
-
+//
 const props=defineProps({
     content:String,
     url:String,
-    auto:{type:Boolean,default:false}
+    layer:[Object,Array],
+    vdata:[Object,Array],
+    auto:{type:Boolean,default:true}
 })
+//v-model:data='props.vdata[props.layer.alias]' 第一次没有
+console.log(props.content,props.layer,props.vdata,"2222111")
 
 const remote = shallowRef();
 
@@ -31,14 +36,14 @@ const loadComponent =()=>{
           },
           async getFile(url) {
             const {data} = await proxy.$get("/api/components/getcode/"+url)
-            console.log(url,data,222)
+            console.log(url,222)
             /*const res = await fetch(url);
             if ( !res.ok )
               throw Object.assign(new Error(res.statusText + ' ' + url), { res });
             return {
               getContentData: asBinary => asBinary ? res.arrayBuffer() : res.text(),
             }*/
-            return data.data
+            return data
           }, 
           addStyle(textContent) {
             const style = Object.assign(document.createElement("style"), {
