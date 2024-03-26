@@ -1,6 +1,8 @@
 <template>
     <el-button @click="load()" v-if="!props.auto">更新</el-button>
-    <component :is="remote" :layer="props.layer"   />
+
+    <component v-if="!props.auto" :is="remote" :layer="props.layer" />
+    <component  v-else  :is="remote" :layer="props.layer"  v-model:data='props.vdata[props.layer.alias]' />
     {{props.vdata}}{{layer}}
 </template>
 
