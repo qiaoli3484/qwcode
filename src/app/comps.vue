@@ -62,6 +62,7 @@
                     </el-form-item>
                     <el-form-item label="扩展参数">
                     <el-input v-model="form.param" />
+                    <qlparam v-model="form.param" />
                     </el-form-item>
                     <el-form-item label="代码">
                     <el-input v-model="form.code" />
@@ -81,6 +82,7 @@
 <script setup>
 import { ref,reactive,computed,getCurrentInstance,nextTick} from 'vue'
 import qlcode from '@/components/qlcode/qlcode.vue'
+import qlparam from './param.vue'
 
 const {proxy} =getCurrentInstance();
 
@@ -106,7 +108,7 @@ const form = ref({
   name: '',
   type:'',
   state:0,
-  param:'',
+  param:[],
   code:'',
   comment:''
 })
@@ -139,7 +141,7 @@ const relaodData=()=>{
     form.value.name=''
     form.value.type=''
     form.value.state=0
-    form.value.param=''
+    form.value.param=[]
     form.value.code=
     `     <template>
         输入代码
