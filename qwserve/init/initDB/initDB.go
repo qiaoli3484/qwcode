@@ -2,6 +2,7 @@ package initDB
 
 import (
 	"qwserve/models"
+	"qwserve/models/fieldModel"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -27,4 +28,6 @@ func InitMysql() {
 
 	// 迁移 schema
 	d.AutoMigrate(&models.WebComponents{})
+	// 根据 User 的字段创建 `deleted_users` 表
+	d.Table("fields").AutoMigrate(&fieldModel.Ttext{})
 }

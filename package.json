@@ -25,6 +25,7 @@
     "tinymce": "^6.8.2",
     "vue": "^3.3.11",
     "vue-grid-layout": "^2.4.0",
+    "vue-router": "^4.3.0",
     "vue3-sfc-loader": "^0.9.1",
     "vuedraggable": "^4.1.0",
     "vxe-table": "^4.5.20"

@@ -32,7 +32,7 @@ func Updates(val *models.WebComponents) error {
 }
 
 func Gets(limit, offset int, query interface{}, args ...interface{}) ([]*models.WebComponents, int64, error) {
-	rows, err := initDB.DB.Model(&models.WebComponents{}).Where(query, args...).Limit(limit).Offset(offset).Order("id desc").Rows()
+	rows, err := initDB.DB.Model(&models.WebComponents{}).Omit("param").Where(query, args...).Limit(limit).Offset(offset).Order("id desc").Rows()
 	if err != nil {
 		return nil, 0, err
 	}

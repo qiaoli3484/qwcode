@@ -3,7 +3,7 @@ import {ref} from 'vue'
 //import HelloWorld from './components/designer/ql-view.vue'
 
 import HelloWorld from './components/customBox/index.vue'
-import comps from './app/comps.vue'
+import comps from './app/comps/comps.vue'
 
 
 // let aa = import.meta.glob('./components/boxs/base/**/*.vue', {eager: true})

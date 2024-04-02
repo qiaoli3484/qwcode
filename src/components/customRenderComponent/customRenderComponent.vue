@@ -1,12 +1,12 @@
 <template>
     <el-button @click="load()" v-if="!props.auto">更新</el-button>
 
-    <component v-if="!props.auto" :is="remote" :layer="props.layer" />
-    <component  v-else  :is="remote" :layer="props.layer"  v-model:data='props.vdata[props.layer.alias]' />
+    <component v-if="!props.auto" :is="remote" :layer="props.layer" @CustomEvent="onCustomEvent"/>
+    <component  v-else  :is="remote" :layer="props.layer"  v-model:data='props.vdata[props.layer.alias]' @CustomEvent="onCustomEvent"/>
 </template>
 
 <script setup>
-import {ref, watch,shallowRef,getCurrentInstance,defineProps,defineAsyncComponent} from 'vue';
+import {ref, watch,shallowRef,getCurrentInstance,defineProps,defineAsyncComponent,defineEmits} from 'vue';
 import * as Vue from "vue";
 import {loadModule} from 'vue3-sfc-loader';
 
@@ -67,6 +67,12 @@ if (props.auto){
   loadComponent()
 }
 
+const emits = defineEmits(["CustomEvent"]);
+
+function onCustomEvent(name, data) {
+  console.log("收到自定义事件", "eventName", name, "数据", data);
+  emits("CustomEvent", name, item.data);
+}
 
 //创建监听 item.HTML 重新渲染
 /*watch(() => props.content, () => {

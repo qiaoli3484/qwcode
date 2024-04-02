@@ -60,10 +60,15 @@
                             <el-radio :value="1">停用</el-radio>
                         </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="扩展参数">
-                    <el-input v-model="form.param" />
-                    <qlparam v-model="form.param" />
+
+                    <el-form-item label="bind参数">
+                        <qlparam v-model="form.param.binds" />
                     </el-form-item>
+
+                    <el-form-item label="style参数">
+                        <qlparam v-model="form.param.styles" />
+                    </el-form-item>
+
                     <el-form-item label="代码">
                     <el-input v-model="form.code" />
                     </el-form-item>
@@ -108,7 +113,7 @@ const form = ref({
   name: '',
   type:'',
   state:0,
-  param:[],
+  param:{binds:[],styles:[]},
   code:'',
   comment:''
 })
@@ -141,7 +146,7 @@ const relaodData=()=>{
     form.value.name=''
     form.value.type=''
     form.value.state=0
-    form.value.param=[]
+    form.value.param={binds:[],styles:[]}
     form.value.code=
     `     <template>
         输入代码
